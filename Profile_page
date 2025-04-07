@@ -1,0 +1,124 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: ProfileScreen(),
+  ));
+}
+
+class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  double _volume = 0.5; 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.cyanAccent[100],
+      body: SafeArea(
+        child: Column(
+          children: [
+            const SizedBox(height: 20),
+            Column(
+              children: const [
+                CircleAvatar(
+                  radius: 40,
+                  backgroundImage: AssetImage('assets/avatar.jpg'),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  'Bombardino Crocodilo',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 30),
+            const Divider(thickness: 2, color: Colors.black),
+            const SizedBox(height: 30),
+
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Sound Volume',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Row(
+              children: [
+                const Icon(Icons.arrow_left),
+                Expanded(
+                  child: Slider(
+                    value: _volume,
+                    onChanged: (value) {
+                      setState(() {
+                        _volume = value;
+                      });
+                    },
+                  ),
+                ),
+                const Icon(Icons.arrow_right),
+              ],
+            ),
+            const SizedBox(height: 40),
+
+            ListTile(
+              leading: const Icon(Icons.edit),
+              title: const Text("Send us feedback"),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text("Log Out"),
+              onTap: () {},
+            ),
+          ],
+        ),
+      ),
+
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 3,
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.blue[300],
+        selectedItemColor: Colors.black,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.translate),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.camera_alt),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.extension),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: CircleAvatar(
+              radius: 14,
+              backgroundImage: AssetImage('assets/avatar.jpg'),
+              backgroundColor: Colors.greenAccent,
+            ),
+            label: '',
+          ),
+        ],
+      ),
+    );
+  }
+}
