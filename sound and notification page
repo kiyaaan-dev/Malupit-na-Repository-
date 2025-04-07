@@ -1,0 +1,157 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Sound and Notification',
+      home: const SoundNotificationPage(),
+    );
+  }
+}
+
+class SoundNotificationPage extends StatefulWidget {
+  const SoundNotificationPage({super.key});
+
+  @override
+  State<SoundNotificationPage> createState() => _SoundNotificationPageState();
+}
+
+class _SoundNotificationPageState extends State<SoundNotificationPage> {
+  bool allowNotification = false;
+  String soundOption = 'sound';
+  double soundVolume = 0.5;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.cyan[100],
+      appBar: AppBar(
+        backgroundColor: Colors.cyan[100],
+        elevation: 0,
+        leading: const BackButton(color: Colors.black),
+        title: const Text(
+          'Sound and Notification',
+          style: TextStyle(color: Colors.black),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              decoration: BoxDecoration(
+                color: Colors.purple[300],
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Allow Notification',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Switch(
+                    value: allowNotification,
+                    onChanged: (value) {
+                      setState(() {
+                        allowNotification = value;
+                      });
+                    },
+                    activeColor: Colors.black,
+                    inactiveThumbColor: Colors.pink[100],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.teal[400],
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Column(
+                children: [
+                  RadioListTile(
+                    value: 'sound',
+                    groupValue: soundOption,
+                    onChanged: (value) {
+                      setState(() {
+                        soundOption = value!;
+                      });
+                    },
+                    title: const Text('Allow sound and vibration'),
+                  ),
+                  RadioListTile(
+                    value: 'silent',
+                    groupValue: soundOption,
+                    onChanged: (value) {
+                      setState(() {
+                        soundOption = value!;
+                      });
+                    },
+                    title: const Text('Silent'),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+            const Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Sound Volume',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+            Slider(
+              value: soundVolume,
+              onChanged: (value) {
+                setState(() {
+                  soundVolume = value;
+                });
+              },
+              activeColor: Colors.blue,
+              inactiveColor: Colors.blue[100],
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        child: Container(
+          height: 60,
+          color: Colors.lightBlue[400],
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              const Icon(Icons.language, color: Colors.black),
+              const Icon(Icons.camera_alt, color: Colors.black),
+              const Icon(Icons.extension, color: Colors.black),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.green[300],
+                  border: Border.all(color: Colors.black),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                padding: const EdgeInsets.all(4),
+                child: const CircleAvatar(
+                  radius: 12,
+                  backgroundImage: AssetImage('assets/avatar.jpg'), // replace with your asset
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
