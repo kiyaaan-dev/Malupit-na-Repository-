@@ -1,0 +1,196 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(SmartTranslateApp());
+}
+
+class SmartTranslateApp extends StatelessWidget {
+  const SmartTranslateApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Smart Translate',
+      debugShowCheckedModeBanner: false,
+      home: TermsAndConditionsScreen(),
+    );
+  }
+}
+
+class TermsAndConditionsScreen extends StatefulWidget {
+  const TermsAndConditionsScreen({super.key});
+
+  @override
+  _TermsAndConditionsScreenState createState() => _TermsAndConditionsScreenState();
+}
+
+class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
+  bool privacyAccepted = false;
+  bool termsAccepted = false;
+
+  void _submit() {
+    if (privacyAccepted && termsAccepted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Thank you! Terms accepted.')),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Please accept all terms.')),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.cyanAccent.shade100,
+      appBar: AppBar(
+        backgroundColor: Colors.cyanAccent.shade100,
+        elevation: 0,
+        title: Text('General Terms and Conditions', style: TextStyle(color: Colors.black)),
+        leading: BackButton(color: Colors.black),
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Divider(thickness: 1, color: Colors.black),
+            SizedBox(height: 16),
+
+            Text(
+              'Privacy Policy',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 8),
+            Text(
+              _privacyPolicy,
+              style: TextStyle(fontSize: 14),
+              textAlign: TextAlign.justify,
+            ),
+
+            SizedBox(height: 24),
+
+            Text(
+              'Terms and Conditions',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 8),
+            Text(
+              _termsAndConditions,
+              style: TextStyle(fontSize: 14),
+              textAlign: TextAlign.justify,
+            ),
+
+            SizedBox(height: 24),
+
+            CheckboxListTile(
+              value: privacyAccepted,
+              onChanged: (value) => setState(() => privacyAccepted = value!),
+              title: Text('I accept the privacy policy'),
+              controlAffinity: ListTileControlAffinity.leading,
+            ),
+            CheckboxListTile(
+              value: termsAccepted,
+              onChanged: (value) => setState(() => termsAccepted = value!),
+              title: Text('I accept the general terms and conditions'),
+              controlAffinity: ListTileControlAffinity.leading,
+            ),
+
+            SizedBox(height: 12),
+
+            ElevatedButton(
+              onPressed: (privacyAccepted && termsAccepted) ? _submit : null,
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size(double.infinity, 50),
+                backgroundColor: Colors.black,
+                foregroundColor: Colors.white,
+                disabledBackgroundColor: Colors.grey.shade400,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25),
+                ),
+              ),
+              child: Center(child: Text('Continue')),
+            ),
+
+            SizedBox(height: 24),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// Static content
+const String _termsAndConditions = '''
+1. Acceptance of Terms
+By downloading, accessing, or using Smart Translate, you agree to be bound by these Terms. If you do not agree, please do not use the App.
+
+2. Use of the App
+You agree to use Smart Translate only for lawful and appropriate purposes. You must not:
+- Use the App in any way that violates any applicable local, national, or international law or regulation.
+- Attempt to gain unauthorized access to any part of the App, server, or connected systems.
+- Reverse engineer, decompile, or disassemble any part of the App.
+- Use the App to transmit any harmful, offensive, or illegal content.
+
+3. User Accounts
+To access certain features, you may be required to create an account. You are responsible for maintaining the confidentiality of your account credentials and for all activity under your account.
+
+4. Intellectual Property
+All content, features, and functionality of Smart Translate (including but not limited to software, text, graphics, and logos) are the property of Smart Path Solutions or its licensors. You may not reproduce, distribute, or create derivative works without our permission.
+
+5. Limitation of Liability
+To the fullest extent permitted by law, Smart Path Solutions shall not be liable for any indirect, incidental, special, or consequential damages resulting from your use of or inability to use the App.
+
+6. Modifications to the Terms
+We reserve the right to modify these Terms at any time. When we do, we will revise the “Effective Date” at the top. Continued use of the App after changes means you accept the revised Terms.
+
+7. Termination
+We may suspend or terminate your access to the App at any time, with or without notice, for conduct that we believe violates these Terms or is otherwise harmful to other users or the Company.
+
+8. Governing Law
+These Terms are governed by and construed in accordance with the laws of [Your Country/State], without regard to its conflict of law provisions.
+''';
+
+const String _privacyPolicy = '''
+Effective Date: [Insert Date]
+
+This Privacy Policy describes how Smart Translate collects, uses, and protects your personal information. By using our App, you agree to the terms of this Privacy Policy.
+
+1. Information We Collect
+We may collect and process the following information:
+- Personal Information: Name, email address, login credentials.
+- Usage Data: How you interact with Smart Translate (e.g., translation history, preferred languages).
+- Device Information: Device type, operating system, IP address, and general location data.
+
+2. How We Use Your Information
+We use your information to:
+- Operate and improve Smart Translate.
+- Personalize your experience and content.
+- Provide customer support and respond to inquiries.
+- Comply with legal obligations.
+
+3. Data Sharing
+We do not sell your personal information. We may share your data with:
+- Third-party service providers to help operate Smart Translate (e.g., cloud hosting, analytics).
+- Legal authorities, if required to do so under applicable law.
+
+4. Data Security
+We implement reasonable technical and organizational measures to safeguard your information. However, no method of transmission over the internet is 100% secure.
+
+5. Your Rights and Choices
+You may:
+- Access, update, or delete your personal data through your account settings.
+- Contact us at [Support Email] to request data deletion or make privacy inquiries.
+
+6. Children’s Privacy
+Smart Translate is not intended for children under the age of 13. We do not knowingly collect personal data from children.
+
+7. Changes to this Policy
+We may update this Privacy Policy occasionally. We encourage users to review it periodically to stay informed.
+
+8. Contact Us
+If you have questions about this Privacy Policy, contact us at:
+- [Support Email]
+- [Company Name & Address]
+''';
